@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Correo</title>
+    <link rel="stylesheet" href="../css/verif.css">
+    <script defer src="../js/control.js"></script>
+</head>
+<body>
+    <div class="verification-container">
+        <h1>Verificar Correo</h1>
+        <p id="text">Se ha enviado un código de confirmación a <strong id="user-email"></strong>.</p>
+        <form id="verification-form">
+            <input type="text" id="verification-code" placeholder="Código de Confirmación" required>
+            <input type="submit" value="Verificar">
+        </form>
+        <p id="error-message" class="error"></p>
+    </div>
+    <script>
+        // Obtener los parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        // Obtener el valor del parámetro "email"
+        const email = urlParams.get('email');
+        // Mostrar el email en el elemento <p>
+        document.getElementById('text').textContent = `Se ha enviado un codigo de verificacion a ${email}`;
+    </script>
+</body>
+</html>
