@@ -8,13 +8,14 @@ function submitMailEventListener(){
 
         const response = await fetch(url, {
             method: "POST",
+            mode: "cors", // no-cors, *cors, same-origin
             headers: {
               "Content-Type": "application/json"
             },
             body: JSON.stringify(mailJSON),
             });
             if(response.status == 200){
-                window.location.href= "../pages/verifMail.html"
+                window.location.href= `../pages/verifMail.html?mail=${document.querySelector("input").value}`
             }
         
     })
