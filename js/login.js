@@ -10,7 +10,7 @@ function submitMailEventListener(){
             method: "POST",
             mode: "cors", // no-cors, *cors, same-origin
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "text/plain"
             },
             body: JSON.stringify(mailJSON),
             });
