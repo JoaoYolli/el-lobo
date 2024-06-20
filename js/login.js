@@ -4,18 +4,18 @@ function submitMailEventListener(){
     
     document.getElementById("formMail").addEventListener("submit", async (event) => {
         event.preventDefault()
-        const mailJSON = {"mail":document.querySelector("input").value};
+        const mailJSON = {"mail":document.getElementById("inputLogin").value};
 
         const response = await fetch(url, {
             method: "POST",
             mode: "cors", // no-cors, *cors, same-origin
             headers: {
-              "Content-Type": "text/plain"
+              "Content-Type": "application/json"
             },
             body: JSON.stringify(mailJSON),
             });
             if(response.status == 200){
-                window.location.href= `../pages/verifMail.html?mail=${document.querySelector("input").value}`
+                window.location.href= `../pages/verifMail.html?mail=${document.getElementById("inputLogin").value}`
             }
         
     })

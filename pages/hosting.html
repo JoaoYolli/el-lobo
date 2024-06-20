@@ -1,18 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mostrar IP Codificada</title>
+    <title>Host a game</title>
     <link rel="stylesheet" href="../css/hosting.css">
+    <script defer src="../js/hosting.js"></script>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script defer src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="../node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 </head>
+
 <body>
-    <div class="container">
-        <h1>IP del terminal codificada</h1>
-        <p id="ipAddress">Obteniendo IP...</p>
-        <button id="copyButton">Copiar IP</button>
+
+    <!-- <div class="myContainer col-12">
+        <h1>Room code</h1>
+        <p id="gameCode">Creating room...</p>
+        <button id="copyButton" onclick="copy()">Copy code</button>
         <button id="goToAnotherPageButton">Start the game</button>
     </div>
-    <script src="../js/hosting.js"></script>
+
+
+    <div class="d-none toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header col-12">
+            <strong class="me-auto">Wolf Game</strong>
+            <button onclick="closeToast()" type="button" class="btn-close" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Code saved in clipboard.
+        </div>
+    </div> -->
+
+    <div class="container text-center">
+        <div class="row justify-content-md-center">
+
+            <div class="myContainer col">
+                <h1>Room code</h1>
+                <p id="gameCode">Creating room...</p>
+                <button id="copyButton" onclick="copy()">Copy code</button>
+                <button id="goToAnotherPageButton">Start the game</button>
+            </div>
+
+        </div>
+        <div class="row justify-content-md-center m-3">
+
+            <div class="d-block toast invisible" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Wolf Game</strong>
+                    <button onclick="closeToast()" type="button" class="btn-close" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Code saved in clipboard.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
 </body>
+
 </html>

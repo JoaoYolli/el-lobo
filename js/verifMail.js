@@ -49,6 +49,8 @@ async function createUserRequest(mail, akka){
             body: JSON.stringify(mailJSON),
             });
             if(response.status == 200){
+                localStorage.setItem("currentMail",mail);
+                localStorage.setItem("currentUser",akka);
                 window.location.href= "../pages/playing.html"
             }else{
                 alert("Error al loggear, intentelo mas tarde")

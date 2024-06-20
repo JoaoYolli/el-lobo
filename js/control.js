@@ -2,5 +2,11 @@ function host(){
     window.location.href = "../pages/hosting.html";
 }
 function join(){
-    window.location.href = "../pages/login.html";
+    console.log(localStorage.getItem("currentUser"))
+    if(localStorage.getItem("currentUser") !== null){
+        window.location.href = "../pages/playing.html";
+    }else{
+        window.location.href = "../pages/login.html";
+    }
+    
 }

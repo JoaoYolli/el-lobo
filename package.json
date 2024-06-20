@@ -1,0 +1,10 @@
+{
+  "name": "el-lobo",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Joaosinho",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  }
+}

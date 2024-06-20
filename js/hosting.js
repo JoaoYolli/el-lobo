@@ -21,8 +21,35 @@ async function createGameReq(){
                 body: JSON.stringify(json),
                 });
                 if(response.status == 200){
-                    resolve(response.text)
+                    let respuesta =  JSON.parse(await response.text())
+                    document.getElementById("gameCode").innerHTML = respuesta["content"]
+                    resolve(respuesta)
                 }
 
     })
 }
+
+function copy() {
+    let cod = document.getElementById("gameCode")
+
+    navigator.clipboard.writeText(cod.innerHTML)
+    
+    let elemento = document.getElementsByClassName("toast")[0]
+    elemento.className = elemento.className.replace("invisible", "visible")
+
+}
+
+function closeToast(){
+    let elemento = document.getElementsByClassName("toast")[0]
+    elemento.className = elemento.className.replace("visible", "invisible")
+}
+
+// const toastTrigger = document.getElementById('liveToastBtn')
+// const toastLiveExample = document.getElementById('liveToast')
+
+// if (toastTrigger) {
+//   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+//   toastTrigger.addEventListener('click', () => {
+//     toastBootstrap.show()
+//   })
+// }
