@@ -1,11 +1,90 @@
 .section {
     display: none;
 }
+
 .section.active {
     display: block;
 }
 
-.bodyJoin {
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.waiting {
+    display: none;
+}
+
+.waiting.active {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Altura completa de la ventana */
+    background-color: black;
+
+
+}
+
+.showRole {
+    display: none;
+}
+
+.showRole.active {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Altura completa de la ventana */
+    background-color: black;
+
+
+}
+
+.icons {
+    width: 70vh;
+    /* Ajusta el tamaño del icono según sea necesario */
+    height: auto;
+    animation: breathe 6s ease-in-out infinite;
+}
+
+.roles {
+    width: 70vh;
+    /* Ajusta el tamaño del icono según sea necesario */
+    height: auto;
+    animation: breathe2 6s ease-in-out infinite;
+}
+
+@keyframes breathe2 {
+
+    0%,
+    100% {
+        transform: scale(0.85);
+    }
+
+    50% {
+        transform: scale(1);
+        /* Ajusta la escala según el efecto deseado */
+    }
+}
+
+@keyframes breathe {
+
+    0%,
+    100% {
+        transform: scale(0.50) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(0.85) rotate(360deg);
+        /* Ajusta la escala según el efecto deseado */
+    }
+}
+
+.join.active {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -13,6 +92,10 @@
     height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
+}
+
+.join {
+    display: none;
 }
 
 .containerJoin {

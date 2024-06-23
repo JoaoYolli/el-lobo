@@ -34,16 +34,6 @@
     </div> -->
 
     <div class="container text-center">
-        <div class="row justify-content-md-center">
-
-            <div class="myContainer col">
-                <h1>Room code</h1>
-                <p id="gameCode">Creating room...</p>
-                <button id="copyButton" onclick="copy()">Copy code</button>
-                <button id="goToAnotherPageButton">Start the game</button>
-            </div>
-
-        </div>
         <div class="row justify-content-md-center m-3">
 
             <div class="d-block toast invisible" role="alert" aria-live="assertive" aria-atomic="true">
@@ -56,6 +46,23 @@
                     Code saved in clipboard.
                 </div>
             </div>
+
+        </div>
+
+        <div class="row justify-content-md-center">
+
+            <div class="myContainer col">
+                <h1>Room code</h1>
+                <p id="gameCode">Creating room...</p>
+                <button id="copyButton" onclick="copy()">Copy code</button>
+                <button id="start" onclick="startGame()">Start the game</button>
+            </div>
+
+        </div>
+        
+        <div class="row justify-content-md-center m-3 myContainer" id="playersList">
+
+            
 
         </div>
     </div>

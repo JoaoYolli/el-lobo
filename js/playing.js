@@ -1,12 +1,15 @@
 let socket 
 addEventListeners()
+showSection("join")
 
 function showSection(sectionId) {
     // Oculta todas las secciones
-    var sections = document.querySelectorAll('.section');
-    sections.forEach(function(section) {
-        section.classList.remove('active');
-    });
+    var sections = document.getElementById('body').children;
+    console.log(sections)
+
+    for (let i = 0; i < sections.length; i++) {
+      sections[i].classList.remove('active');
+    }
 
     // Muestra la sección seleccionada
     var activeSection = document.getElementById(sectionId);
@@ -47,6 +50,7 @@ async function joinGame(){
         if(response.status == 200){
             console.log(await response.text())
             initializeWebSocket(codigo)
+            showSection("waiting")
         }else{
             alert("Codigo incorrecto")
         }
@@ -65,6 +69,7 @@ async function initializeWebSocket(codigo){
         // Evento de mensaje recibido
         socket.addEventListener('message', function (event) {
           console.log('Mensaje del servidor:', event.data);
+          identifyMessageFromServer(event.data)
         //   addMessageToChat(event.data);
         });
         
@@ -75,6 +80,17 @@ async function initializeWebSocket(codigo){
         resolve()
     })
 
+
+}
+function identifyMessageFromServer(message){
+
+  let parts = message.split("/")
+  if(parts[0] == "set-screen"){
+    showSection(parts[1])
+    if(parts[1] == "showRole"){
+      let roleIMG = document.getElementById("roleImg")
+    }
+  }
 
 }
 

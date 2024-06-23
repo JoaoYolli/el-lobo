@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página con Secciones</title>
+    <title>Worf Game</title>
     <link rel="stylesheet" href="../css/playing.css">
-    <script defer src ="../js/playing.js"></script>
+    <script defer src="../js/playing.js"></script>
 </head>
-<body>
 
-    <div class="bodyJoin" id="join" class="section active">
+<body id="body">
+
+    <div id="join" class="join">
         <div class="containerJoin">
             <h1 class="h1Join">Unirse a una Partida</h1>
             <form class="formJoin" id="formJoin">
@@ -20,15 +22,15 @@
         </div>
     </div>
 
-    <div id="about" class="section">
-        <h1>Acerca de Nosotros</h1>
-        <p>Esta es la sección acerca de nosotros.</p>
+    <div id="waiting" class="waiting">
+        <img src="../source\images\wolfIcon.png" class="icons">
     </div>
 
-    <div id="contact" class="section">
-        <h1>Contáctanos</h1>
-        <p>Esta es la sección de contacto.</p>
+    <div id="showRole" class="showRole">
+        <p id="loading" >Aldeano</p>
+        <img id = "roleImg" src="../source\images/aldeanoIcon.png" class="roles">
     </div>
 
 </body>
+
 </html>
