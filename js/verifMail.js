@@ -17,7 +17,7 @@ function verifMailEventListener(){
             method: "POST",
             mode: "cors", // no-cors, *cors, same-origin
             headers: {
-              "Content-Type": "text/plain" // TODO Why is it working?
+              "Content-Type": "application/json" // TODO Why is it working?
             },
             body: JSON.stringify(mailJSON),
             });
@@ -44,13 +44,15 @@ async function createUserRequest(mail, akka){
             method: "POST",
             mode: "cors", // no-cors, *cors, same-origin
             headers: {
-              "Content-Type": "text/plain"
+              "Content-Type": "application/json"
             },
             body: JSON.stringify(mailJSON),
             });
             if(response.status == 200){
-                localStorage.setItem("currentMail",mail);
-                localStorage.setItem("currentUser",akka);
+                // console.log(JSON.parse(await response.text())["token"])
+                sessionStorage.setItem("currentMail",mail);
+                sessionStorage.setItem("currentUser",akka);
+                localStorage.setItem("token" , JSON.parse(await response.text())["token"]);
                 window.location.href= "../pages/playing.html"
             }else{
                 alert("Error al loggear, intentelo mas tarde")

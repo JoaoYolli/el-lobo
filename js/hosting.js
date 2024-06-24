@@ -37,7 +37,18 @@ async function startGame(){
 
     console.log(socket)
 
-    socket.send(`start-game/${codigo}`)
+    let toSend = `start-game/${codigo}`
+
+    const selectedRoles = [];
+      const form = document.getElementById('rolesForm');
+      const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+      
+      checkboxes.forEach((checkbox) => {
+        toSend = toSend +"/"+checkbox.value
+      });
+
+
+    socket.send(toSend)
 
 }
 
@@ -71,7 +82,7 @@ async function initializeWebSocket(codigo){
 function identifyMessageFromServer(message){
     let parts = message.split("/")
     let lista = document.getElementById("playersList")
-    lista.innerHTML = "<p>Players List</p>"
+    lista.innerHTML = "<h3>Players List</h3>"
     if(parts[0] === "PlayerUpdated"){
         for(let i = 1 ; i <= parts.length ; i++ ){
             if(parts[i]){
@@ -84,6 +95,11 @@ function identifyMessageFromServer(message){
         setTimeout(() => {
             console.log("Start now the game")
         },5000)
+
+    }
+    if(parts[0] === "need-more-players"){
+
+        alert("Minimum players: 4")
 
     }
 
@@ -104,12 +120,3 @@ function closeToast(){
     elemento.className = elemento.className.replace("visible", "invisible")
 }
 
-// const toastTrigger = document.getElementById('liveToastBtn')
-// const toastLiveExample = document.getElementById('liveToast')
-
-// if (toastTrigger) {
-//   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-//   toastTrigger.addEventListener('click', () => {
-//     toastBootstrap.show()
-//   })
-// }

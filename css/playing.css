@@ -52,23 +52,35 @@ body {
 }
 
 .roles {
-    width: 70vh;
-    /* Ajusta el tamaño del icono según sea necesario */
-    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-image: "";
+    background-repeat: no-repeat;
+    background-size: 100vh;
+    background-position: center;
     animation: breathe2 6s ease-in-out infinite;
+}
+
+.roleText{
+    font-size: 20vh;
+    font-family: cursive;
+    color: #ffffff;
 }
 
 @keyframes breathe2 {
 
-    0%,
-    100% {
-        transform: scale(0.85);
-    }
-
-    50% {
-        transform: scale(1);
-        /* Ajusta la escala según el efecto deseado */
-    }
+    0% {
+        background-size: 45% 45%;
+      }
+      50% {
+        background-size: 70% 70%;
+      }
+      100% {
+        background-size: 45% 45%;
+      }
 }
 
 @keyframes breathe {

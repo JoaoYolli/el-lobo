@@ -32,8 +32,8 @@ async function joinGame(){
 
     let json = {
         "codeRoom":codigo,
-        "mail":localStorage.getItem("currentMail"),
-        "name":localStorage.getItem("currentUser")
+        "mail":sessionStorage.getItem("currentMail"),
+        "name":sessionStorage.getItem("currentUser")
     }
 
     console.log(json)
@@ -63,7 +63,7 @@ async function initializeWebSocket(codigo){
         // Evento de conexión exitosa
         socket.addEventListener('open', function (event) {
           console.log('Conectado al servidor WebSocket');
-          socket.send(`register/${codigo}/${localStorage.getItem("currentMail")}`)
+          socket.send(`register/${codigo}/${sessionStorage.getItem("currentMail")}`)
         });
         
         // Evento de mensaje recibido
@@ -88,10 +88,125 @@ function identifyMessageFromServer(message){
   if(parts[0] == "set-screen"){
     showSection(parts[1])
     if(parts[1] == "showRole"){
-      let roleIMG = document.getElementById("roleImg")
+      setRoleImage(parts[2])
     }
   }
 
+}
+
+function setRoleImage(role){
+  let img = document.getElementById("roleImg")
+  let text = document.getElementById("roleName")
+  switch (role){
+    case "aldeano":
+      img.style.backgroundImage = "url(../source/images/aldeano.png)"
+      text.innerHTML = "Aldeano"
+      console.log(img.style.backgroundImage)
+      console.log(role)
+    break;
+    case "angel":
+      img.style.backgroundImage = "url(../source/images/angel.png)";
+      text.innerHTML = "Ángel";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "bruja":
+      img.style.backgroundImage = "url(../source/images/bruja.png)";
+      text.innerHTML = "Bruja";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "caballero":
+      img.style.backgroundImage = "url(../source/images/caballero.png)";
+      text.innerHTML = "Caballero";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "cupido":
+      img.style.backgroundImage = "url(../source/images/cupido.png)";
+      text.innerHTML = "Cupido";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "domador de osos":
+      img.style.backgroundImage = "url(../source/images/domador_de_osos.png)";
+      text.innerHTML = "Domador de Osos";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "gitana":
+      img.style.backgroundImage = "url(../source/images/gitana.png)";
+      text.innerHTML = "Gitana";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "hombrelobo":
+      img.style.backgroundImage = "url(../source/images/hombrelobo.png)";
+      text.innerHTML = "Hombrelobo";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "hombrelobo albino":
+      img.style.backgroundImage = "url(../source/images/hombrelobo_albino.png)";
+      text.innerHTML = "Hombrelobo Albino";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "juez tartamudo":
+      img.style.backgroundImage = "url(../source/images/juez_tartamudo.png)";
+      text.innerHTML = "Juez Tartamudo";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "ladron":
+      img.style.backgroundImage = "url(../source/images/ladron.png)";
+      text.innerHTML = "Ladrón";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "niña":
+      img.style.backgroundImage = "url(../source/images/niña.png)";
+      text.innerHTML = "Niña";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "niño salvaje":
+      img.style.backgroundImage = "url(../source/images/niño_salvaje.png)";
+      text.innerHTML = "Niño Salvaje";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "padre lobo":
+      img.style.backgroundImage = "url(../source/images/padre_lobo.png)";
+      text.innerHTML = "Padre Lobo";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "protector":
+      img.style.backgroundImage = "url(../source/images/protector.png)";
+      text.innerHTML = "Protector";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "sirvienta":
+      img.style.backgroundImage = "url(../source/images/sirvienta.png)";
+      text.innerHTML = "Sirvienta";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "vidente":
+      img.style.backgroundImage = "url(../source/images/vidente.png)";
+      text.innerHTML = "Vidente";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+    case "zorro":
+      img.style.backgroundImage = "url(../source/images/zorro.png)";
+      text.innerHTML = "Zorro";
+      console.log(img.style.backgroundImage);
+      console.log(role);
+      break;
+  }
 }
 
 // Función para enviar mensajes al servidor

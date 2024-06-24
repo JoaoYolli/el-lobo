@@ -14,25 +14,6 @@
 
 <body>
 
-    <!-- <div class="myContainer col-12">
-        <h1>Room code</h1>
-        <p id="gameCode">Creating room...</p>
-        <button id="copyButton" onclick="copy()">Copy code</button>
-        <button id="goToAnotherPageButton">Start the game</button>
-    </div>
-
-
-    <div class="d-none toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header col-12">
-            <strong class="me-auto">Wolf Game</strong>
-            <button onclick="closeToast()" type="button" class="btn-close" data-bs-dismiss="toast"
-                aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            Code saved in clipboard.
-        </div>
-    </div> -->
-
     <div class="container text-center">
         <div class="row justify-content-md-center m-3">
 
@@ -59,14 +40,92 @@
             </div>
 
         </div>
-        
-        <div class="row justify-content-md-center m-3 myContainer" id="playersList">
 
+        <div class="row justify-content-md-center m-3 myContainer">
             
-
+            <div class="column justify-content-md-center col-md-6">
+                <h4>Select Roles</h4>
+                <form id="rolesForm">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="aldeano" id="aldeano">
+                        <label class="form-check-label" for="aldeano">Aldeano</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="angel" id="angel">
+                        <label class="form-check-label" for="angel">Ángel</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="bruja" id="bruja">
+                        <label class="form-check-label" for="bruja">Bruja</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="caballero" id="caballero">
+                        <label class="form-check-label" for="caballero">Caballero</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="cupido" id="cupido">
+                        <label class="form-check-label" for="cupido">Cupido</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="domador" id="domador">
+                        <label class="form-check-label" for="domador">Domador de Osos</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="gitana" id="gitana">
+                        <label class="form-check-label" for="gitana">Gitana</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="hombreLobo" id="hombrelobo">
+                        <label class="form-check-label" for="hombrelobo">Hombrelobo</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="hombreLoboAlbino" id="hombreloboAlbino">
+                        <label class="form-check-label" for="hombreloboAlbino">Hombrelobo Albino</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="juezTartamudo" id="juezTartamudo">
+                        <label class="form-check-label" for="juezTartamudo">Juez Tartamudo</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="ladron" id="ladron">
+                        <label class="form-check-label" for="ladron">Ladrón</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="niña" id="niña">
+                        <label class="form-check-label" for="niña">Niña</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="niñoSalvaje" id="niñoSalvaje">
+                        <label class="form-check-label" for="niñoSalvaje">Niño Salvaje</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="padreLobo" id="padreLobo">
+                        <label class="form-check-label" for="padreLobo">Padre Lobo</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="protector" id="protector">
+                        <label class="form-check-label" for="protector">Protector</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="sirvienta" id="sirvienta">
+                        <label class="form-check-label" for="sirvienta">Sirvienta</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="vidente" id="vidente">
+                        <label class="form-check-label" for="vidente">Vidente</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="zorro" id="zorro">
+                        <label class="form-check-label" for="zorro">Zorro</label>
+                    </div>
+                </form>
+            </div>
+        
+            <div class="column justify-content-md-center col-md-6" id="playersList">
+            </div>
         </div>
-    </div>
 
+    </div>
 
 </body>
 

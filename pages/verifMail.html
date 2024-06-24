@@ -23,8 +23,13 @@
         const urlParams = new URLSearchParams(window.location.search);
         // Obtener el valor del parámetro "email"
         const email = urlParams.get('email');
+        const name = urlParams.get('name');
         // Mostrar el email en el elemento <p>
         document.getElementById('text').textContent = `Se ha enviado un codigo de verificacion a ${email}`;
+        if(name != ""){
+            document.getElementById('user-name').value = name;
+            document.getElementById('user-name').readOnly = true;
+        }
     </script>
 </body>
 </html>

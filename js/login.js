@@ -15,7 +15,7 @@ function submitMailEventListener(){
             body: JSON.stringify(mailJSON),
             });
             if(response.status == 200){
-                window.location.href= `../pages/verifMail.html?mail=${document.getElementById("inputLogin").value}`
+                window.location.href= `../pages/verifMail.html?mail=${document.getElementById("inputLogin").value}&name=${JSON.parse(await response.text())["content"]}`
             }
         
     })
