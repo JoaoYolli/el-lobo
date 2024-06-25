@@ -128,8 +128,8 @@ function setRoleImage(role){
       console.log(img.style.backgroundImage);
       console.log(role);
       break;
-    case "domador de osos":
-      img.style.backgroundImage = "url(../source/images/domador_de_osos.png)";
+    case "domador_de_osos":
+      img.style.backgroundImage = "url(../source/images/domadorOsos.png)";
       text.innerHTML = "Domador de Osos";
       console.log(img.style.backgroundImage);
       console.log(role);
@@ -140,20 +140,20 @@ function setRoleImage(role){
       console.log(img.style.backgroundImage);
       console.log(role);
       break;
-    case "hombrelobo":
-      img.style.backgroundImage = "url(../source/images/hombrelobo.png)";
+    case "hombre_lobo":
+      img.style.backgroundImage = "url(../source/images/hombreLobo.png)";
       text.innerHTML = "Hombrelobo";
       console.log(img.style.backgroundImage);
       console.log(role);
       break;
-    case "hombrelobo albino":
-      img.style.backgroundImage = "url(../source/images/hombrelobo_albino.png)";
+    case "hombre_lobo_albino":
+      img.style.backgroundImage = "url(../source/images/hombreLoboAlbino.png)";
       text.innerHTML = "Hombrelobo Albino";
       console.log(img.style.backgroundImage);
       console.log(role);
       break;
-    case "juez tartamudo":
-      img.style.backgroundImage = "url(../source/images/juez_tartamudo.png)";
+    case "juez_tartamudo":
+      img.style.backgroundImage = "url(../source/images/juezTartamudo.png)";
       text.innerHTML = "Juez Tartamudo";
       console.log(img.style.backgroundImage);
       console.log(role);
@@ -170,14 +170,14 @@ function setRoleImage(role){
       console.log(img.style.backgroundImage);
       console.log(role);
       break;
-    case "niño salvaje":
-      img.style.backgroundImage = "url(../source/images/niño_salvaje.png)";
+    case "niño_salvaje":
+      img.style.backgroundImage = "url(../source/images/niñoSalvaje.png)";
       text.innerHTML = "Niño Salvaje";
       console.log(img.style.backgroundImage);
       console.log(role);
       break;
-    case "padre lobo":
-      img.style.backgroundImage = "url(../source/images/padre_lobo.png)";
+    case "padre_lobo":
+      img.style.backgroundImage = "url(../source/images/padreLobo.png)";
       text.innerHTML = "Padre Lobo";
       console.log(img.style.backgroundImage);
       console.log(role);
