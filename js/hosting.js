@@ -11,7 +11,7 @@ window.addEventListener('load', async () => {
 async function createGameReq(){
     return new Promise(async (resolve) => {
         console.log("BOTON")
-        let url = 'http://localhost:8000/host-game'
+        let url = 'https://srv-el-lobo.vercel.app/host-game'
     
         const json = {};
     

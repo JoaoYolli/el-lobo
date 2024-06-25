@@ -28,7 +28,7 @@ function addEventListeners(){
 async function joinGame(){
     let codigo =  document.getElementById("gameCode").value
 
-    let url = 'http://localhost:8000/join-game'
+    let url = 'https://srv-el-lobo.vercel.app/join-game'
 
     let json = {
         "codeRoom":codigo,
