@@ -4,6 +4,8 @@
   "description": "",
   "author": "Joaosinho",
   "license": "ISC",
+  
+  "main": "index.html",
   "dependencies": {
     "bootstrap": "^5.3.3"
   }
