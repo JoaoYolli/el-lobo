@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 function host(){
     window.location.href = "../pages/hosting.html";
 }
@@ -13,7 +15,8 @@ async function join(){
 
 async function checkToken(token){
 
-    let url = 'http://localhost:8000/check-token'
+    let url = 'https://srv-el-lobo.onrender.com/check-token'
+    
     return new Promise(async (resolve) => {
         const response = await fetch(url, {
             method: "POST",
