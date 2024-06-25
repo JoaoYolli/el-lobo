@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 function host(){
     window.location.href = "../pages/hosting.html";
 }
