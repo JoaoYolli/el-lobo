@@ -28,7 +28,7 @@ function addEventListeners(){
 async function joinGame(){
     let codigo =  document.getElementById("gameCode").value
 
-    let url = 'https://localhost:8000/join-game'
+    let url = 'http://localhost:8000/join-game'
 
     let json = {
         "codeRoom":codigo,
