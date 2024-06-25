@@ -13,7 +13,7 @@ async function join(){
 
 async function checkToken(token){
 
-    let url = 'https://srv-el-lobo.onrender.com/check-token'
+    let url = 'https://localhost:8000/check-token'
     
     return new Promise(async (resolve) => {
         const response = await fetch(url, {

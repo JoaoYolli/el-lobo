@@ -1,6 +1,6 @@
 function submitMailEventListener(){
     console.log("BOTON")
-    let url = 'https://srv-el-lobo.onrender.com/send-mail'
+    let url = 'https://localhost:8000/send-mail'
     
     document.getElementById("formMail").addEventListener("submit", async (event) => {
         event.preventDefault()
