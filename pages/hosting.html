@@ -32,13 +32,15 @@
 
         <div class="row justify-content-md-center">
 
+            
             <div class="myContainer col">
                 <h1>Room code</h1>
-                <p id="gameCode">Creating room...</p>
+                <p id="gameCode"></p>
+                <div id="loadSpinner"class="spinner-grow overlay" role="status"></div>
                 <button id="copyButton" onclick="copy()">Copy code</button>
                 <button id="start" onclick="startGame()">Start the game</button>
             </div>
-
+            
         </div>
 
         <div class="row justify-content-md-center m-3 myContainer">
@@ -122,6 +124,8 @@
             </div>
         
             <div class="column justify-content-md-center col-md-6" id="playersList">
+
+                <h4>Players List</h4>
             </div>
         </div>
 

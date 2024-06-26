@@ -1,109 +1,125 @@
-let socket 
+let socket
 addEventListeners()
 showSection("join")
 
 function showSection(sectionId) {
-    // Oculta todas las secciones
-    var sections = document.getElementById('body').children;
-    console.log(sections)
+  // Oculta todas las secciones
+  var sections = document.getElementById('body').children;
+  console.log(sections)
 
-    for (let i = 0; i < sections.length; i++) {
-      sections[i].classList.remove('active');
-    }
+  for (let i = 0; i < sections.length; i++) {
+    sections[i].classList.remove('active');
+  }
 
-    // Muestra la sección seleccionada
-    var activeSection = document.getElementById(sectionId);
-    activeSection.classList.add('active');
+  // Muestra la sección seleccionada
+  var activeSection = document.getElementById(sectionId);
+  activeSection.classList.add('active');
 }
 
 
-function addEventListeners(){
-    document.getElementById("formJoin").addEventListener("submit", async (event) => {
-        event.preventDefault()
-        joinGame()
-        
-    })
+function addEventListeners() {
+  document.getElementById("formJoin").addEventListener("submit", async (event) => {
+    event.preventDefault()
+    joinGame()
+
+  })
 }
 
-async function joinGame(){
-    let codigo =  document.getElementById("gameCode").value
+async function joinGame() {
+
+  return new Promise(async (resolve) => {
+
+    let codigo = document.getElementById("gameCode").value
 
     let url = 'https://srv-el-lobo.vercel.app/join-game'
 
     let json = {
-        "codeRoom":codigo,
-        "mail":sessionStorage.getItem("currentMail"),
-        "name":sessionStorage.getItem("currentUser")
+      "codeRoom": codigo,
+      "mail": sessionStorage.getItem("currentMail"),
+      "name": sessionStorage.getItem("currentUser")
     }
 
     console.log(json)
 
-    const response = await fetch(url, {
+    let spinner = document.getElementById("loadSpinner")
+    spinner.classList.add("overlay")
+
+    try {
+      const response = await fetch(url, {
         method: "POST",
-        mode: "cors", // no-cors, *cors, same-origin
+        mode: "cors",
         headers: {
-          "Content-Type": "application/json" // TODO Why is it working?
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(json),
-        });
-        
-        if(response.status == 200){
-            console.log(await response.text())
-            initializeWebSocket(codigo)
-            showSection("waiting")
-        }else{
-            alert("Codigo incorrecto")
-        }
+      });
+
+      if (response.status == 200) {
+        console.log(await response.text())
+        initializeWebSocket(codigo)
+        showSection("waiting")
+        spinner.classList.remove("overlay")
+      } else {
+        spinner.classList.remove("overlay")
+        alert("Codigo incorrecto")
+      }
+      
+    } catch (error) {
+      spinner.classList.remove("overlay")
+      joinGame()
+    }
+
+  })
 }
 
-async function initializeWebSocket(codigo){
-    return new Promise((resolve) =>{
-        socket = new WebSocket('ws://localhost:8000');
-    
-        // Evento de conexión exitosa
-        socket.addEventListener('open', function (event) {
-          console.log('Conectado al servidor WebSocket');
-          socket.send(`register/${codigo}/${sessionStorage.getItem("currentMail")}`)
-        });
-        
-        // Evento de mensaje recibido
-        socket.addEventListener('message', function (event) {
-          console.log('Mensaje del servidor:', event.data);
-          identifyMessageFromServer(event.data)
-        //   addMessageToChat(event.data);
-        });
-        
-        // Evento de cierre de conexión
-        socket.addEventListener('close', function (event) {
-          console.log('Desconectado del servidor WebSocket');
-        });
-        resolve()
-    })
+async function initializeWebSocket(codigo) {
+  return new Promise((resolve) => {
+    socket = new WebSocket('ws://srv-el-lobo.vercel.app:8000');
+
+    // Evento de conexión exitosa
+    socket.addEventListener('open', function (event) {
+      console.log('Conectado al servidor WebSocket');
+      socket.send(`register/${codigo}/${sessionStorage.getItem("currentMail")}`)
+    });
+
+    // Evento de mensaje recibido
+    socket.addEventListener('message', function (event) {
+      console.log('Mensaje del servidor:', event.data);
+      identifyMessageFromServer(event.data)
+      //   addMessageToChat(event.data);
+    });
+
+    // Evento de cierre de conexión
+    socket.addEventListener('close', function (event) {
+      console.log('Desconectado del servidor WebSocket');
+    });
+    resolve()
+  })
 
 
 }
-function identifyMessageFromServer(message){
+function identifyMessageFromServer(message) {
 
   let parts = message.split("/")
-  if(parts[0] == "set-screen"){
+  if (parts[0] == "set-screen") {
     showSection(parts[1])
-    if(parts[1] == "showRole"){
+    if (parts[1] == "showRole") {
       setRoleImage(parts[2])
     }
   }
 
 }
 
-function setRoleImage(role){
+function setRoleImage(role) {
   let img = document.getElementById("roleImg")
   let text = document.getElementById("roleName")
-  switch (role){
+  switch (role) {
     case "aldeano":
       img.style.backgroundImage = "url(../source/images/aldeano.png)"
       text.innerHTML = "Aldeano"
       console.log(img.style.backgroundImage)
       console.log(role)
-    break;
+      break;
     case "angel":
       img.style.backgroundImage = "url(../source/images/angel.png)";
       text.innerHTML = "Ángel";
@@ -215,7 +231,7 @@ function sendMessage() {
   const message = messageInput.value;
   socket.send(message);
   messageInput.value = '';
-//   addMessageToChat('Yo: ' + message);
+  //   addMessageToChat('Yo: ' + message);
 }
 
 // Función para agregar mensajes al chat en la interfaz
