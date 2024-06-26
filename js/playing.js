@@ -31,7 +31,7 @@ async function joinGame() {
 
     let codigo = document.getElementById("gameCode").value
 
-    let url = 'https://srv-el-lobo.vercel.app/join-game'
+    let url = 'http://81.34.175.196:8012/join-game'
 
     let json = {
       "codeRoom": codigo,
@@ -74,7 +74,7 @@ async function joinGame() {
 
 async function initializeWebSocket(codigo) {
   return new Promise((resolve) => {
-    socket = new WebSocket('ws://srv-el-lobo.vercel.app:8000');
+    socket = new WebSocket('ws://81.34.175.196:8012');
 
     // Evento de conexión exitosa
     socket.addEventListener('open', function (event) {

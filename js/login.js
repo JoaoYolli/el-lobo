@@ -1,6 +1,6 @@
 function submitMailEventListener(){
     console.log("BOTON")
-    let url = 'https://srv-el-lobo.vercel.app/send-mail'
+    let url = 'http://81.34.175.196:8012/send-mail'
     
     document.getElementById("formMail").addEventListener("submit", async (event) => {
         event.preventDefault()

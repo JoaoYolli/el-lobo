@@ -13,7 +13,7 @@ async function join(){
 
 async function checkToken(token){
 
-    let url = 'https://srv-el-lobo.vercel.app/check-token'
+    let url = 'http://81.34.175.196:8012/check-token'
     
     return new Promise(async (resolve) => {
         const response = await fetch(url, {

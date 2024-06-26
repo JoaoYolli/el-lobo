@@ -20,7 +20,7 @@ async function createGameReq(cod) {
             trys++
             console.log(trys)
             console.log("BOTON")
-            let url = 'https://srv-el-lobo.vercel.app/host-game'
+            let url = 'http://81.34.175.196:8012/host-game'
 
             const json = {};
 
@@ -73,7 +73,7 @@ async function startGame() {
 
 async function initializeWebSocket(codigo) {
     return new Promise((resolve) => {
-        socket = new WebSocket('ws://srv-el-lobo.vercel.app:8000');
+        socket = new WebSocket('ws://81.34.175.196:8012');
 
         // Evento de conexión exitosa
         socket.addEventListener('open', function (event) {

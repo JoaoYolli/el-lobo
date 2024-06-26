@@ -2,7 +2,7 @@ function verifMailEventListener(){
     
     var urlParams = new URLSearchParams(window.location.search);
     var mail = urlParams.get('mail');
-    let url = 'https://srv-el-lobo.vercel.app/verify-code'
+    let url = 'http://81.34.175.196:8012/verify-code'
     console.log("BOTON", mail)
     
     document.getElementById("text").innerHTML = `Se ha enviado un código de confirmación a <strong id="user-email">${mail}</strong>.`;
@@ -35,7 +35,7 @@ function verifMailEventListener(){
 async function createUserRequest(mail, akka){
 
     console.log("CREATE USER")
-    let url = 'https://srv-el-lobo.vercel.app/create-user'
+    let url = 'http://81.34.175.196:8012/create-user'
 
         const mailJSON = {"mail":mail, "akka":akka};
         console.log(mailJSON)
