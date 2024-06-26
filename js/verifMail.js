@@ -2,7 +2,7 @@ function verifMailEventListener(){
     
     var urlParams = new URLSearchParams(window.location.search);
     var mail = urlParams.get('mail');
-    let url = 'http://joawolf.ddns.net:8012/verify-code'
+    let url = 'http://localhost:8012/verify-code'
     console.log("BOTON", mail)
     
     document.getElementById("text").innerHTML = `Se ha enviado un código de confirmación a <strong id="user-email">${mail}</strong>.`;
@@ -35,7 +35,7 @@ function verifMailEventListener(){
 async function createUserRequest(mail, akka){
 
     console.log("CREATE USER")
-    let url = 'http://joawolf.ddns.net:8012/create-user'
+    let url = 'http://localhost:8012/create-user'
 
         const mailJSON = {"mail":mail, "akka":akka};
         console.log(mailJSON)

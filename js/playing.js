@@ -31,7 +31,7 @@ async function joinGame() {
 
     let codigo = document.getElementById("gameCode").value
 
-    let url = 'http://joawolf.ddns.net:8012/join-game'
+    let url = 'http://localhost:8012/join-game'
 
     let json = {
       "codeRoom": codigo,
@@ -74,7 +74,7 @@ async function joinGame() {
 
 async function initializeWebSocket(codigo) {
   return new Promise((resolve) => {
-    socket = new WebSocket('ws://joawolf.ddns.net:8012');
+    socket = new WebSocket('ws://localhost:8012');
 
     // Evento de conexión exitosa
     socket.addEventListener('open', function (event) {
