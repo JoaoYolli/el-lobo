@@ -20,7 +20,7 @@ async function createGameReq(cod) {
             trys++
             console.log(trys)
             console.log("BOTON")
-            let url = 'http://81.34.175.196:8012/host-game'
+            let url = 'http://joawolf.ddns.net:8012/host-game'
 
             const json = {};
 
@@ -73,7 +73,7 @@ async function startGame() {
 
 async function initializeWebSocket(codigo) {
     return new Promise((resolve) => {
-        socket = new WebSocket('ws://81.34.175.196:8012');
+        socket = new WebSocket('ws://joawolf.ddns.net:8012');
 
         // Evento de conexión exitosa
         socket.addEventListener('open', function (event) {
