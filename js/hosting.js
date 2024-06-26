@@ -20,7 +20,7 @@ async function createGameReq(cod) {
             trys++
             console.log(trys)
             console.log("BOTON")
-            let url = 'http://localhost:8012/host-game'
+            let url = 'http://localhost:8013/host-game'
 
             const json = {};
 
@@ -73,7 +73,7 @@ async function startGame() {
 
 async function initializeWebSocket(codigo) {
     return new Promise((resolve) => {
-        socket = new WebSocket('ws://localhost:8012');
+        socket = new WebSocket('ws://localhost:8013');
 
         // Evento de conexión exitosa
         socket.addEventListener('open', function (event) {

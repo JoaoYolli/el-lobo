@@ -13,7 +13,7 @@ async function join(){
 
 async function checkToken(token){
 
-    let url = 'http://localhost:8012/check-token'
+    let url = 'http://localhost:8013/check-token'
     
     return new Promise(async (resolve) => {
         const response = await fetch(url, {
