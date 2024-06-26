@@ -4,8 +4,12 @@
   "description": "",
   "author": "Joaosinho",
   "license": "ISC",
+  "scripts": {
+    "start":"http-server . -p 3000"
+  },
   "dependencies": {
     "bootstrap": "^5.3.3",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "http-server": "^14.1.1"
   }
 }
