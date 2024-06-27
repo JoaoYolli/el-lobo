@@ -1,6 +1,44 @@
 let socket
-addEventListeners()
-showSection("join")
+init()
+
+async function init(){
+  
+  addEventListeners()
+  showSection("join")
+  if(localStorage.getItem("token") !== null && await checkToken(localStorage.getItem("token"))){
+          
+  }else{
+      window.location.href = "../pages/login.html";
+  }
+}
+
+async function checkToken(token){
+
+  let url = properties["protocol"]+properties["url"]+properties["port"]+'/check-token'
+  
+  return new Promise(async (resolve) => {
+      const response = await fetch(url, {
+          method: "POST",
+          mode: "cors", // no-cors, *cors, same-origin
+          headers: {
+            "Content-Type": "application/json" // TODO Why is it working?
+          },
+          body: JSON.stringify({"token":token}),
+          });
+          
+          if(response.status == 200){
+              let respuesta = response.text()
+              console.log(respuesta)
+              sessionStorage.setItem("currentUser",JSON.parse(await respuesta)["userName"])
+              sessionStorage.setItem("currentMail",JSON.parse(await respuesta)["userMail"])
+              resolve(true)
+
+          }else{
+              resolve(false)
+          }
+  })
+ 
+}
 
 function showSection(sectionId) {
   // Oculta todas las secciones
@@ -31,7 +69,9 @@ async function joinGame() {
 
     let codigo = document.getElementById("gameCode").value
 
-    let url = 'http://localhost:8013/join-game'
+    codigo = codigo.toUpperCase()
+
+    let url = properties["protocol"]+properties["url"]+properties["port"]+'/join-game'
 
     let json = {
       "codeRoom": codigo,
@@ -74,7 +114,7 @@ async function joinGame() {
 
 async function initializeWebSocket(codigo) {
   return new Promise((resolve) => {
-    socket = new WebSocket('ws://localhost:8013');
+    socket = new WebSocket('ws://'+properties["url"]+properties["port"]);
 
     // Evento de conexión exitosa
     socket.addEventListener('open', function (event) {

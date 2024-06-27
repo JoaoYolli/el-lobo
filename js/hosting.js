@@ -4,6 +4,7 @@ let trys = 0
 
 window.addEventListener('load', async () => {
 
+    console.log(properties)
     codigo = await createGameReq(codigo)
     console.log(codigo)
 
@@ -20,7 +21,7 @@ async function createGameReq(cod) {
             trys++
             console.log(trys)
             console.log("BOTON")
-            let url = 'http://localhost:8013/host-game'
+            let url = properties["protocol"]+properties["url"]+properties["port"]+'/host-game'
 
             const json = {};
 
@@ -73,7 +74,7 @@ async function startGame() {
 
 async function initializeWebSocket(codigo) {
     return new Promise((resolve) => {
-        socket = new WebSocket('ws://localhost:8013');
+        socket = new WebSocket('ws://'+properties["url"]+properties["port"]);
 
         // Evento de conexión exitosa
         socket.addEventListener('open', function (event) {

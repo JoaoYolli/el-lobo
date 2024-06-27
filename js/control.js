@@ -1,3 +1,4 @@
+console.log(properties)
 function host(){
     window.location.href = "../pages/hosting.html";
 }
@@ -13,7 +14,7 @@ async function join(){
 
 async function checkToken(token){
 
-    let url = 'http://localhost:8013/check-token'
+    let url = properties["protocol"]+properties["url"]+properties["port"]+'/check-token'
     
     return new Promise(async (resolve) => {
         const response = await fetch(url, {

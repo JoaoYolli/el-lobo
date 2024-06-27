@@ -1,6 +1,6 @@
 function submitMailEventListener(){
     console.log("BOTON")
-    let url = 'http://localhost:8013/send-mail'
+    let url = properties["protocol"]+properties["url"]+properties["port"]+'/send-mail'
     
     document.getElementById("formMail").addEventListener("submit", async (event) => {
         event.preventDefault()
