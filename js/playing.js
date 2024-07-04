@@ -147,6 +147,10 @@ function identifyMessageFromServer(message) {
       setRoleImage(parts[2])
     }
   }
+  if (parts[0] == "host-disconnected") {
+    alert("Host disconnected");
+    window.location.href = "../index.html";
+  }
 
 }
 
