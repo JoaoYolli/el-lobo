@@ -5,7 +5,7 @@
   "author": "Joaosinho",
   "license": "ISC",
   "scripts": {
-    "start":"http-server . -p 3000"
+    "start":"http-server . -p  %PORT_FRONT%"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
