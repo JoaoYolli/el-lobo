@@ -82,6 +82,21 @@ async function displayAccounts(accounts){
         arrayOfUsers.forEach(account => {
 
             const listItem = document.createElement('li');
+            listItem.id = account.akka
+            //Para marcar o desmarcar el usuario desde la lista de usuarios
+            listItem.addEventListener('click', (event) => {
+                event.stopPropagation();
+                let aResaltar = document.getElementById("inGame-"+account.mail)
+                if(aResaltar.style.backgroundColor == 'lightyellow'){
+                    aResaltar.style.backgroundColor = "#f9f9f9";
+                    aResaltar.style.cursor = 'auto';
+                }else{
+                    aResaltar.style.backgroundColor = 'lightyellow';
+                    aResaltar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    aResaltar.style.cursor = 'pointer';
+                }
+            }); 
+            listItem.style.cursor = 'pointer';
             listItem.textContent = `${account.akka} (${account.mail})`;
             lista.appendChild(listItem);
             
@@ -109,6 +124,16 @@ async function displayGames(games){
             players.forEach(playerMail => {
                 const listItem = document.createElement('li');
                 listItem.textContent = playerMail; // Puedes modificar esto para mostrar más información
+                listItem.id = "inGame-"+playerMail
+                //Para desmarcar el usuario
+                listItem.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    let aResaltar = document.getElementById("inGame-"+playerMail)
+                    if(aResaltar.style.backgroundColor == 'lightyellow'){
+                        aResaltar.style.backgroundColor = "#f9f9f9";
+                        aResaltar.style.cursor = 'auto';
+                    }
+                }); 
                 playerList.appendChild(listItem);
             });
 
