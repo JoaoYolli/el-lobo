@@ -132,7 +132,8 @@ function copy() {
         area.value = texto;
   
         // Evitar que el área de texto sea visible en la pantalla
-        area.className = "invisible";
+        area.style.position = "fixed";
+        area.style.left = "-9999px";
   
         // Agregar el área de texto al documento
         document.body.appendChild(area);
