@@ -1,7 +1,74 @@
 let currentGameRow = ""
+let auth = ""
+
 init()
 
-async function init(){
+
+async function init() {
+
+    if (!sessionStorage.getItem("auth") && ! await checkAuth(sessionStorage.getItem("auth"))) {
+
+        document.getElementById("maintenance").style.display = 'none';
+
+        document.getElementById("formAuth").addEventListener("submit", async (event) => {
+            event.preventDefault()
+            let url = properties["protocol"] + properties["url"] + properties["port"] + '/maintainAuth'
+            const mailJSON = { "auth": document.getElementById("inputAuth").value };
+
+            const response = await fetch(url, {
+                method: "POST",
+                mode: "cors", // no-cors, *cors, same-origin
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(mailJSON),
+            });
+            if (response.status == 200) {
+                auth = document.getElementById("inputAuth").value
+                sessionStorage.setItem("auth", document.getElementById("inputAuth").value)
+                initMaintenance()
+            } else {
+                alert("UNAUTHORIZED")
+                window.location.href = "../";
+            }
+
+        })
+
+    }else{
+        auth = sessionStorage.getItem("auth")
+        initMaintenance()
+    }
+}
+
+async function checkAuth(a) {
+    return new Promise(async(resolve) => {
+        try {
+            let url = properties["protocol"] + properties["url"] + properties["port"] + '/maintainAuth'
+            const mailJSON = { "auth": a };
+
+            const response = await fetch(url, {
+                method: "POST",
+                mode: "cors", // no-cors, *cors, same-origin
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(mailJSON),
+            });
+            if (response.status == 200) {
+                resolve(true)
+            } else {
+                resolve(false)
+            }
+        } catch (error) {
+            resolve(false)
+        }
+    })
+}
+
+async function initMaintenance() {
+
+    document.getElementById("maintenance").style.display = '';
+    document.getElementById("form").style.display = 'none';
 
     let accounts = await getAccounts()
     displayAccounts(accounts)
@@ -11,67 +78,62 @@ async function init(){
 
 }
 
-async function getAccounts(){
+async function getAccounts() {
 
     return new Promise(async (resolve) => {
-        let urlParams = new URLSearchParams(window.location.search);
-        let auth = urlParams.get('auth');
-
-        let url = properties["protocol"]+properties["url"]+properties["port"]+'/getAccounts/'+auth
+        let url = properties["protocol"] + properties["url"] + properties["port"] + '/getAccounts/' + auth
 
         const response = await fetch(url, {
             method: "GET",
             mode: "cors", // no-cors, *cors, same-origin
             headers: {
-              "Content-Type": "application/json" // TODO Why is it working?
+                "Content-Type": "application/json" // TODO Why is it working?
             }
-            });
-            
-            if(response.status == 200){
-                
-                resolve(JSON.parse(await response.text())["content"])
-  
-            }else{
-                alert("UNAUTHORIZED")
-                window.location.href = "../";
-            }
-            resolve()
+        });
+
+        if (response.status == 200) {
+
+            resolve(JSON.parse(await response.text())["content"])
+
+        } else {
+            alert("UNAUTHORIZED")
+            window.location.href = "../";
+        }
+        resolve()
 
     })
 
 }
 
-async function getGames(){
+async function getGames() {
 
     return new Promise(async (resolve) => {
-        let urlParams = new URLSearchParams(window.location.search);
-        let auth = urlParams.get('auth');
 
-        let url = properties["protocol"]+properties["url"]+properties["port"]+'/getGames/'+auth
+        let url = properties["protocol"] + properties["url"] + properties["port"] + '/getGames/' + auth
 
         const response = await fetch(url, {
             method: "GET",
             mode: "cors", // no-cors, *cors, same-origin
             headers: {
-              "Content-Type": "application/json" // TODO Why is it working?
+                "Content-Type": "application/json" // TODO Why is it working?
             }
-            });
-            
-            if(response.status == 200){
-                
-                resolve(JSON.parse(await response.text())["content"])
-  
-            }else{
-                alert("UNAUTHORIZED")
-                window.location.href = "../";
-            }
-            resolve()
+        });
+
+        if (response.status == 200) {
+
+            resolve(JSON.parse(await response.text())["content"])
+
+        } else {
+            alert("UNAUTHORIZED")
+            window.location.href = "../";
+        }
+        resolve()
 
     })
 
 }
 
-async function displayAccounts(accounts){
+async function displayAccounts(accounts) {
 
     return new Promise((resolve) => {
 
@@ -86,20 +148,20 @@ async function displayAccounts(accounts){
             //Para marcar o desmarcar el usuario desde la lista de usuarios
             listItem.addEventListener('click', (event) => {
                 event.stopPropagation();
-                let aResaltar = document.getElementById("inGame-"+account.mail)
-                if(aResaltar.style.backgroundColor == 'lightyellow'){
+                let aResaltar = document.getElementById("inGame-" + account.mail)
+                if (aResaltar.style.backgroundColor == 'lightyellow') {
                     aResaltar.style.backgroundColor = "#f9f9f9";
                     aResaltar.style.cursor = 'auto';
-                }else{
+                } else {
                     aResaltar.style.backgroundColor = 'lightyellow';
                     aResaltar.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     aResaltar.style.cursor = 'pointer';
                 }
-            }); 
+            });
             listItem.style.cursor = 'pointer';
             listItem.textContent = `${account.akka} (${account.mail})`;
             lista.appendChild(listItem);
-            
+
         });
 
         resolve()
@@ -107,7 +169,7 @@ async function displayAccounts(accounts){
 
 }
 
-async function displayGames(games){
+async function displayGames(games) {
     return new Promise((resolve) => {
         const gamesData = JSON.parse(games);
 
@@ -124,16 +186,16 @@ async function displayGames(games){
             players.forEach(playerMail => {
                 const listItem = document.createElement('li');
                 listItem.textContent = playerMail; // Puedes modificar esto para mostrar más información
-                listItem.id = "inGame-"+playerMail
+                listItem.id = "inGame-" + playerMail
                 //Para desmarcar el usuario
                 listItem.addEventListener('click', (event) => {
                     event.stopPropagation();
-                    let aResaltar = document.getElementById("inGame-"+playerMail)
-                    if(aResaltar.style.backgroundColor == 'lightyellow'){
+                    let aResaltar = document.getElementById("inGame-" + playerMail)
+                    if (aResaltar.style.backgroundColor == 'lightyellow') {
                         aResaltar.style.backgroundColor = "#f9f9f9";
                         aResaltar.style.cursor = 'auto';
                     }
-                }); 
+                });
                 playerList.appendChild(listItem);
             });
 
@@ -142,7 +204,7 @@ async function displayGames(games){
             deleteButton.textContent = 'Eliminar';
             deleteButton.addEventListener('click', (event) => {
                 event.stopPropagation();
-                showMenu(row,`"${game}"`);
+                showMenu(row, `"${game}"`);
             });
             actionsCell.appendChild(deleteButton);
 
@@ -169,34 +231,32 @@ function hideMenu() {
     menu.style.display = 'none';
 }
 
-async function deleteGame(){
+async function deleteGame() {
 
     return new Promise(async (resolve) => {
-        let urlParams = new URLSearchParams(window.location.search);
-        let auth = urlParams.get('auth');
 
-        let url = properties["protocol"]+properties["url"]+properties["port"]+'/deleteGame/'+auth
+        let url = properties["protocol"] + properties["url"] + properties["port"] + '/deleteGame/' + auth
 
-        let json = {game: currentGameRow}
+        let json = { game: currentGameRow }
 
         const response = await fetch(url, {
             method: "POST",
             mode: "cors", // no-cors, *cors, same-origin
             headers: {
-              "Content-Type": "application/json" // TODO Why is it working?
+                "Content-Type": "application/json" // TODO Why is it working?
             },
             body: JSON.stringify(json),
-            });
-            
-            if(response.status == 200){
-                
-                window.location.reload();
-  
-            }else{
-                alert("UNAUTHORIZED")
-                hideMenu()
-            }
-            resolve()
+        });
+
+        if (response.status == 200) {
+
+            window.location.reload();
+
+        } else {
+            alert("UNAUTHORIZED")
+            hideMenu()
+        }
+        resolve()
 
     })
 

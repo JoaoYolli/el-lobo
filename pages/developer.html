@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../source/images/maintainance.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Mantenimiento</title>
     <link rel="stylesheet" href="../css/developer.css">
@@ -15,7 +16,14 @@
         <button id="cancelButton" onclick="hideMenu()">Cancelar</button>
     </div>
 
-    <div class="container">
+    <div id="form" class="container">
+        <form id="formAuth">
+            <input id="inputAuth" type="password" name="Autheticator" placeholder="XXXXXXXXXX" required>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+
+    <div id="maintenance" class="container">
         <h1>Página de Mantenimiento</h1>
 
         <div class="section">
