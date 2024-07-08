@@ -121,6 +121,13 @@ function identifyMessageFromServer(message) {
 
     }
 
+    if (parts[0] === "game-closed") {
+
+        alert("Game closed")
+        window.location.href = "../";
+
+    }
+
 }
 
 function copy() {

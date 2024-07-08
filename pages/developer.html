@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Mantenimiento</title>
+    <link rel="stylesheet" href="../css/developer.css">
+    <script defer src="../js/config.js"></script>
+    <script defer src="../js/developer.js"></script>
+</head>
+<body>
+    <div class="menu" id="menu">
+        <p>¿Seguro que deseas eliminar esta partida?</p>
+        <button id="deleteButton" onclick="deleteGame()">Eliminar</button>
+        <button id="cancelButton" onclick="hideMenu()">Cancelar</button>
+    </div>
+
+    <div class="container">
+        <h1>Página de Mantenimiento</h1>
+
+        <div class="section">
+            <h2>Lista de Partidas</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Partida</th>
+                            <th>Jugadores y Roles</th>
+                        </tr>
+                    </thead>
+                    <tbody class="game-body">
+                        <!-- Las partidas se agregarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Lista de Cuentas de Usuario</h2>
+            <ul id="listaCuentas" class="account-list">
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
