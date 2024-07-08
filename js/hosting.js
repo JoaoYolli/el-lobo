@@ -3,8 +3,6 @@ let codigo
 let trys = 0
 
 window.addEventListener('load', async () => {
-
-    console.log(properties)
     codigo = await createGameReq(codigo)
     console.log(codigo)
 
@@ -126,9 +124,28 @@ function identifyMessageFromServer(message) {
 }
 
 function copy() {
-    let cod = document.getElementById("gameCode")
-
-    navigator.clipboard.writeText(cod.innerHTML)
+        // Obtener el contenido de la etiqueta <label>
+        var texto = document.getElementById("gameCode").innerText;
+  
+        // Crear un elemento de texto oculto
+        var area = document.createElement("textarea");
+        area.value = texto;
+  
+        // Evitar que el área de texto sea visible en la pantalla
+        area.className = "invisible";
+  
+        // Agregar el área de texto al documento
+        document.body.appendChild(area);
+  
+        // Seleccionar el contenido del área de texto
+        area.select();
+        area.setSelectionRange(0, 99999); // Para dispositivos móviles
+  
+        // Copiar el texto al portapapeles
+        document.execCommand("copy");
+  
+        // Eliminar el área de texto del documento
+        document.body.removeChild(area);
 
     let elemento = document.getElementsByClassName("toast")[0]
     elemento.className = elemento.className.replace("invisible", "visible")
