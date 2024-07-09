@@ -145,6 +145,7 @@ function identifyMessageFromServer(message) {
     showSection(parts[1])
     if (parts[1] == "showRole") {
       setRoleImage(parts[2])
+      vibrateDevice([100,200,100])
     }
   }
   if (parts[0] == "host-disconnected") {
@@ -278,10 +279,10 @@ function sendMessage() {
   //   addMessageToChat('Yo: ' + message);
 }
 
-// Función para agregar mensajes al chat en la interfaz
-// function addMessageToChat(message) {
-//   const messages = document.getElementById('messages');
-//   const li = document.createElement('li');
-//   li.textContent = message;
-//   messages.appendChild(li);
-// }
+function vibrateDevice(pattern) {
+  if ("vibrate" in navigator) {
+      navigator.vibrate(pattern);
+  } else {
+      console.log("La API de vibración no es compatible con este dispositivo.");
+  }
+}

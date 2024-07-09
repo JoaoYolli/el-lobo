@@ -1,6 +1,10 @@
 let socket
 let codigo
 let trys = 0
+let isPaused = false;
+let roles = []
+
+document.getElementById("countdown").style.display = "none"
 
 window.addEventListener('load', async () => {
     codigo = await createGameReq(codigo)
@@ -62,11 +66,26 @@ async function startGame() {
     const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
 
     checkboxes.forEach((checkbox) => {
-        toSend = toSend + "/" + checkbox.value
+        if(checkbox.value == "aldeano"){    
+            let aldeanosInput = document.getElementById('aldeanoCount').value;
+            let aldeanos = parseInt(aldeanosInput,10)
+            for(let i = 0; i < aldeanos ; i++){
+                toSend = toSend + "/" + checkbox.value
+                roles.push(checkbox.value)
+            }
+
+        }else{
+            toSend = toSend + "/" + checkbox.value
+            roles.push(checkbox.value)
+        }
     });
 
 
     socket.send(toSend)
+
+    console.log(roles)
+
+    gameSequence()
 
 }
 
@@ -163,5 +182,181 @@ function copy() {
 function closeToast() {
     let elemento = document.getElementsByClassName("toast")[0]
     elemento.className = elemento.className.replace("visible", "invisible")
+}
+
+async function gameSequence() {
+    const roles = [
+        "aldeano", "angel", "bruja", "caballero", "cupido", "domador_de_osos", "gitana", 
+        "hombre_lobo", "hombre_lobo_albino", "juez_tartamudo", "ladron", "niña", "niño_salvaje", 
+        "padre_lobo", "protector", "sirvienta", "vidente", "zorro"
+    ];
+
+    // Preparación previa de la partida
+    speak("Revisa tu rol en tu dispositivo");
+    await countDown(10.0);
+    speak("El pueblo duerme...");
+    await countDown(5.0);
+
+    // Primera noche - personajes específicos
+    speak("Separación de la aldea en 2 grupos para el sectario.");
+    await countDown(5.0);
+
+    if (roles.includes("cupido")) {
+        speak("Cupido enamora a dos jugadores.");
+        await countDown(5.0);
+        speak("Los enamorados despiertan y se reconocen.");
+        await countDown(5.0);
+    }
+
+    if (roles.includes("gemelas")) {
+        speak("Las Gemelas se reconocen.");
+        await countDown(5.0);
+    }
+
+    if (roles.includes("trillizos")) {
+        speak("Los Trillizos se reconocen.");
+        await countDown(5.0);
+    }
+
+    if (roles.includes("niño_salvaje")) {
+        speak("El Niño Salvaje decide a quién imitar.");
+        await countDown(5.0);
+    }
+
+    if (roles.includes("domador_de_osos")) {
+        speak("El Cazador de Osos despierta para que el narrador lo identifique.");
+        await countDown(5.0);
+    }
+
+    if (roles.includes("perro_lobo")) {
+        speak("El Perro Lobo despierta para comunicarle al narrador a qué bando pertenece.");
+        await countDown(5.0);
+    }
+
+    if (roles.some(role => ["hombre_lobo", "hombre_lobo_albino", "padre_lobo"].includes(role))) {
+        speak("Los Hombres Lobo despiertan y se reconocen, pero no saben quién es quién.");
+        await countDown(5.0);
+        speak("Los Hombres Lobo duermen, y Hombre Lobo, Hombre Lobo Feroz y Padre de los Hombres Lobo levantan el pulgar.");
+        await countDown(5.0);
+    }
+
+    if (roles.includes("vidente")) {
+        speak("La Vidente despierta y los identifica.");
+        await countDown(5.0);
+    }
+
+    if (roles.includes("angel")) {
+        speak("El Ángel despierta. La Vidente y la Gitana levantan el pulgar. Las identifica.");
+        await countDown(5.0);
+    }
+
+    // Acciones repetitivas de todas las noches
+    while (true) {
+        if (roles.includes("ladron")) {
+            speak("El Ladrón decide si roba alguna carta.");
+            await countDown(5.0);
+        }
+
+        if (roles.includes("zorro")) {
+            speak("El Zorro señala un grupo de 3 personas juntas. El narrador asiente o niega con la cabeza.");
+            await countDown(5.0);
+        }
+
+        if (roles.includes("protector")) {
+            speak("Protector: decide a quién va a proteger o blindar en este turno.");
+            await countDown(5.0);
+        }
+
+        speak("Todos los Hombres Lobo despiertan y asesinan.");
+        await countDown(5.0);
+
+        if (roles.includes("hombre_lobo_feroz")) {
+            speak("Hombre Lobo Feroz: Caza de nuevo él solo.");
+            await countDown(5.0);
+        }
+
+        if (roles.includes("padre_lobo")) {
+            speak("Padre de todos los Hombres Lobo: ¿Utiliza su poder? Sólo una vez por partida.");
+            await countDown(5.0);
+        }
+
+        if (roles.includes("bruja")) {
+            speak("La bruja decide si utiliza alguna poción.");
+            await countDown(5.0);
+        }
+
+        // El día
+        speak("Descubrimiento de las víctimas.");
+        await countDown(5.0);
+
+        if (roles.includes("domador_de_osos")) {
+            speak("Gruñido del oso.");
+            await countDown(5.0);
+        }
+
+        speak("Debate.");
+        await countDown(5.0);
+        speak("Linchamiento.");
+        await countDown(5.0);
+
+        if (roles.includes("sirvienta")) {
+            speak("¿Sirvienta? Puede utilizar su poder o no.");
+            await countDown(5.0);
+        }
+
+        if (roles.includes("juez_tartamudo")) {
+            speak("Segundo voto si el Juez lo decide.");
+            await countDown(5.0);
+        }
+
+        speak("Cae de nuevo la noche.");
+        await countDown(5.0);
+    }
+}
+
+async function countDown(time){
+    return new Promise((resolve) => {
+        const countdownElement = document.getElementById('countdown');
+        document.getElementById("setting").style.display = "none";
+        
+        let countdownNumber = time;
+        let isPaused = false;
+
+        const countdown = setInterval(() => {
+            countdownElement.style.display = 'flex';
+
+            if (!isPaused) {
+                countdownElement.textContent = parseInt(countdownNumber);
+                countdownNumber = countdownNumber - 0.1;
+
+                if (countdownNumber < 0) {
+                    clearInterval(countdown);
+                    countdownElement.textContent = "¡Tiempo!";
+                    countdownElement.style.display = "none";
+                    resolve();  // Resuelve la promesa cuando la cuenta regresiva termina
+                }
+            } else {
+                countdownElement.textContent = "⏸️";
+            }
+        }, 100);
+
+        // Permitir pausar/reanudar la cuenta regresiva
+        document.body.addEventListener('click', () => {
+            isPaused = !isPaused;
+        });
+    });
+}
+
+function togglePause(){
+    isPaused = !isPaused;
+}
+
+function speak(text) {
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(utterance);
+    } else {
+        console.log("API de síntesis de voz no soportada en este navegador.");
+    }
 }
 

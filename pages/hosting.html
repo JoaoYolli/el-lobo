@@ -16,7 +16,9 @@
 
 <body>
 
-    <div class="container text-center">
+    <div id="countdown" onclick=togglePause()>10</div>
+
+    <div id="setting" class="container text-center">
         <div class="row justify-content-md-center m-3">
 
             <div class="d-block toast invisible" role="alert" aria-live="assertive" aria-atomic="true">
@@ -34,25 +36,26 @@
 
         <div class="row justify-content-md-center">
 
-            
+
             <div class="myContainer col">
                 <h1>Room code</h1>
                 <p id="gameCode"></p>
-                <div id="loadSpinner"class="spinner-grow overlay" role="status"></div>
+                <div id="loadSpinner" class="spinner-grow overlay" role="status"></div>
                 <button id="copyButton" onclick="copy()">Copy code</button>
                 <button id="start" onclick="startGame()">Start the game</button>
             </div>
-            
+
         </div>
 
         <div class="row justify-content-md-center m-3 myContainer">
-            
+
             <div class="column justify-content-md-center col-md-6">
                 <h4>Select Roles</h4>
                 <form id="rolesForm">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="aldeano" id="aldeano">
                         <label class="form-check-label" for="aldeano">Aldeano</label>
+                        <input type="number" class="form-control" id="aldeanoCount" value="0" min="0">
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="angel" id="angel">
@@ -83,7 +86,8 @@
                         <label class="form-check-label" for="hombrelobo">Hombre Lobo</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="hombre_lobo_albino" id="hombreloboAlbino">
+                        <input class="form-check-input" type="checkbox" value="hombre_lobo_albino"
+                            id="hombreloboAlbino">
                         <label class="form-check-label" for="hombreloboAlbino">Hombre Lobo Albino</label>
                     </div>
                     <div class="form-check">
@@ -124,7 +128,7 @@
                     </div>
                 </form>
             </div>
-        
+
             <div class="column justify-content-md-center col-md-6" id="playersList">
 
                 <h4>Players List</h4>

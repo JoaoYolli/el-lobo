@@ -27,7 +27,7 @@ body {
     align-items: center;
     justify-content: center;
     color: rgb(0, 0, 0);
-  }
+}
 
 h1 {
     color: #333;
@@ -43,4 +43,40 @@ p {
 
 .invisible {
     visibility: hidden !important;
+}
+
+#countdown {
+    font-size: 5em;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    font-family: Arial, sans-serif;
+    background-color: #282c34;
+    color: white;
+    margin: 0;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.form-check-label {
+    margin-right: 10px;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+#aldeanoCount {
+    width: 3vw;
+    text-align: center;
+    display: inline;
 }
