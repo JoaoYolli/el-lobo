@@ -3,6 +3,7 @@ let codigo
 let trys = 0
 let isPaused = false;
 let roles = []
+let speed = 1.25
 
 document.getElementById("countdown").style.display = "none"
 
@@ -10,7 +11,33 @@ window.addEventListener('load', async () => {
     codigo = await createGameReq(codigo)
     console.log(codigo)
 
+    document.getElementById("btnSi").onclick = function () {
+        cerrarModal();
+        startGame()
+        // Aquí puedes hacer algo cuando el usuario hace clic en "Sí"
+    }
+
+    document.getElementById("btnNo").onclick = function () {
+        cerrarModal();
+        // Aquí puedes hacer algo cuando el usuario hace clic en "No"
+    }
 });
+
+function mostrarModal(txt) {
+    let modal = document.getElementById("miVentanaModal");
+    setModalQuestion(txt)
+    modal.style.display = "block";
+}
+
+function cerrarModal() {
+    let modal = document.getElementById("miVentanaModal");
+    modal.style.display = "none";
+}
+
+function setModalQuestion(txt){
+    let label = document.getElementById("qModal");
+    label.innerHTML = txt;
+}
 
 async function createGameReq(cod) {
 
@@ -23,7 +50,7 @@ async function createGameReq(cod) {
             trys++
             console.log(trys)
             console.log("BOTON")
-            let url = properties["protocol"]+properties["url"]+properties["port"]+'/host-game'
+            let url = properties["protocol"] + properties["url"] + properties["port"] + '/host-game'
 
             const json = {};
 
@@ -57,29 +84,10 @@ async function createGameReq(cod) {
 
 async function startGame() {
 
-    console.log(socket)
-
     let toSend = `start-game/${codigo}`
-
-    const selectedRoles = [];
-    const form = document.getElementById('rolesForm');
-    const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
-
-    checkboxes.forEach((checkbox) => {
-        if(checkbox.value == "aldeano"){    
-            let aldeanosInput = document.getElementById('aldeanoCount').value;
-            let aldeanos = parseInt(aldeanosInput,10)
-            for(let i = 0; i < aldeanos ; i++){
-                toSend = toSend + "/" + checkbox.value
-                roles.push(checkbox.value)
-            }
-
-        }else{
-            toSend = toSend + "/" + checkbox.value
-            roles.push(checkbox.value)
-        }
-    });
-
+    
+    roles = []
+    toSend += getRoles()
 
     socket.send(toSend)
 
@@ -89,9 +97,35 @@ async function startGame() {
 
 }
 
+function getRoles(){
+    let textRoles = ""
+    const form = document.getElementById('rolesForm');
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.value == "aldeano") {
+            let aldeanosInput = document.getElementById('aldeanoCount').value;
+            let aldeanos = parseInt(aldeanosInput, 10)
+            for (let i = 0; i < aldeanos; i++) {
+                textRoles = textRoles + "/" + checkbox.value
+                roles.push(checkbox.value)
+            }
+
+        } else {
+            textRoles = textRoles + "/" + checkbox.value
+            roles.push(checkbox.value)
+        }
+    });
+    return textRoles
+}
+
+async function checkPlayers(){
+    let toSend = `check-players/${codigo}`
+    socket.send(toSend)
+}
+
 async function initializeWebSocket(codigo) {
     return new Promise((resolve) => {
-        socket = new WebSocket('ws://'+properties["url"]+properties["port"]);
+        socket = new WebSocket('ws://' + properties["url"] + properties["port"]);
 
         // Evento de conexión exitosa
         socket.addEventListener('open', function (event) {
@@ -134,9 +168,15 @@ function identifyMessageFromServer(message) {
         }, 5000)
 
     }
-    if (parts[0] === "need-more-players") {
-
-        alert("Minimum players: 4")
+    if (parts[0] === "players-number") {
+        let numJugadores = parseInt(parts[1])
+        roles = []
+        getRoles()
+        if(numJugadores < roles.length){
+            mostrarModal("Hay mas roles seleccionados que jugadores en la partida, estas seguro que quieres empezar?")
+        }else{
+            gameSequence()
+        }
 
     }
 
@@ -150,29 +190,29 @@ function identifyMessageFromServer(message) {
 }
 
 function copy() {
-        // Obtener el contenido de la etiqueta <label>
-        var texto = document.getElementById("gameCode").innerText;
-  
-        // Crear un elemento de texto oculto
-        var area = document.createElement("textarea");
-        area.value = texto;
-  
-        // Evitar que el área de texto sea visible en la pantalla
-        area.style.position = "fixed";
-        area.style.left = "-9999px";
-  
-        // Agregar el área de texto al documento
-        document.body.appendChild(area);
-  
-        // Seleccionar el contenido del área de texto
-        area.select();
-        area.setSelectionRange(0, 99999); // Para dispositivos móviles
-  
-        // Copiar el texto al portapapeles
-        document.execCommand("copy");
-  
-        // Eliminar el área de texto del documento
-        document.body.removeChild(area);
+    // Obtener el contenido de la etiqueta <label>
+    var texto = document.getElementById("gameCode").innerText;
+
+    // Crear un elemento de texto oculto
+    var area = document.createElement("textarea");
+    area.value = texto;
+
+    // Evitar que el área de texto sea visible en la pantalla
+    area.style.position = "fixed";
+    area.style.left = "-9999px";
+
+    // Agregar el área de texto al documento
+    document.body.appendChild(area);
+
+    // Seleccionar el contenido del área de texto
+    area.select();
+    area.setSelectionRange(0, 99999); // Para dispositivos móviles
+
+    // Copiar el texto al portapapeles
+    document.execCommand("copy");
+
+    // Eliminar el área de texto del documento
+    document.body.removeChild(area);
 
     let elemento = document.getElementsByClassName("toast")[0]
     elemento.className = elemento.className.replace("invisible", "visible")
@@ -185,11 +225,11 @@ function closeToast() {
 }
 
 async function gameSequence() {
-    const roles = [
-        "aldeano", "angel", "bruja", "caballero", "cupido", "domador_de_osos", "gitana", 
-        "hombre_lobo", "hombre_lobo_albino", "juez_tartamudo", "ladron", "niña", "niño_salvaje", 
-        "padre_lobo", "protector", "sirvienta", "vidente", "zorro"
-    ];
+    // const roles = [
+    //     "aldeano", "angel", "bruja", "caballero", "cupido", "domador_de_osos", "gitana", 
+    //     "hombre_lobo", "hombre_lobo_albino", "juez_tartamudo", "ladron", "niña", "niño_salvaje", 
+    //     "padre_lobo", "protector", "sirvienta", "vidente", "zorro"
+    // ];
 
     // Preparación previa de la partida
     speak("Revisa tu rol en tu dispositivo");
@@ -314,12 +354,12 @@ async function gameSequence() {
     }
 }
 
-async function countDown(time){
+async function countDown(time) {
     return new Promise((resolve) => {
         const countdownElement = document.getElementById('countdown');
         document.getElementById("setting").style.display = "none";
-        
-        let countdownNumber = time;
+
+        let countdownNumber = time * speed;
         let isPaused = false;
 
         const countdown = setInterval(() => {
@@ -347,7 +387,7 @@ async function countDown(time){
     });
 }
 
-function togglePause(){
+function togglePause() {
     isPaused = !isPaused;
 }
 
@@ -360,3 +400,17 @@ function speak(text) {
     }
 }
 
+function updatePhaseSpeed() {
+    const selectElement = document.getElementById('phaseSpeed');
+    const selectedValue = selectElement.value;
+
+    if (selectedValue === 'slow') {
+        speed = 1.25;
+    } else if (selectedValue === 'normal') {
+        speed = 1;
+    } else if (selectedValue === 'fast') {
+        speed = 0.75;
+    }
+
+    console.log('Phase Speed updated to:', speed);
+}

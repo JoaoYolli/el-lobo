@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Code</title>
+</head>
+<body>
+    <script>
+        // Función para obtener el código del parámetro en la URL
+        function getCodeFromUrl() {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('code');
+        }
+        function getMailFromUrl() {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('mail');
+        }
+        function getNameFromUrl() {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('name');
+        }
+
+        // Obtener el código de la URL
+        let code = getCodeFromUrl();
+        let mail = getMailFromUrl();
+        let name
+        try {
+            name = getNameFromUrl();
+        } catch (error) {
+            
+        }
+
+         // Copiar automáticamente el texto al portapapeles
+         navigator.clipboard.writeText(code)
+            .then(function() {
+                try {
+                    if(name == null){
+                        window.location = `./verifMail.html?mail=${mail}&name=`
+                    }else{
+                        window.location = `./verifMail.html?mail=${mail}&name=${name}`
+                    }
+                } catch (error) {
+                    window.location = `./verifMail.html?mail=${mail}`
+                }
+            })
+            .catch(function(err) {
+            });
+    </script>
+</body>
+</html>
