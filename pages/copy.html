@@ -60,19 +60,15 @@
 
         // Copiar automáticamente el texto al portapapeles
         copy(code)
-            .then(function () {
-                try {
-                    if (name == null) {
-                        window.location = `./verifMail.html?mail=${mail}&name=`
-                    } else {
-                        window.location = `./verifMail.html?mail=${mail}&name=${name}`
-                    }
-                } catch (error) {
-                    window.location = `./verifMail.html?mail=${mail}`
-                }
-            })
-            .catch(function (err) {
-            });
+        try {
+            if (name == null) {
+                window.location = `./verifMail.html?mail=${mail}&name=`
+            } else {
+                window.location = `./verifMail.html?mail=${mail}&name=${name}`
+            }
+        } catch (error) {
+            window.location = `./verifMail.html?mail=${mail}`
+        }
     </script>
 </body>
 
