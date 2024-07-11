@@ -23,52 +23,62 @@
             return urlParams.get('name');
         }
 
-        function copy(txt) {
+        async function copy(txt) {
 
-            // Crear un elemento de texto oculto
-            var area = document.createElement("textarea");
-            area.value = txt;
+            return new Promise((resolve) => {
 
-            // Evitar que el área de texto sea visible en la pantalla
-            area.style.position = "fixed";
-            area.style.left = "-9999px";
+                // Crear un elemento de texto oculto
+                var area = document.createElement("textarea");
+                area.innerHTML = txt;
 
-            // Agregar el área de texto al documento
-            document.body.appendChild(area);
+                // Evitar que el área de texto sea visible en la pantalla
+                area.style.position = "fixed";
+                area.style.left = "-9999px";
 
-            // Seleccionar el contenido del área de texto
-            area.select();
-            area.setSelectionRange(0, 99999); // Para dispositivos móviles
+                // Agregar el área de texto al documento
+                document.body.appendChild(area);
 
-            // Copiar el texto al portapapeles
-            document.execCommand("copy");
+                // Seleccionar el contenido del área de texto
+                area.select();
+                area.setSelectionRange(0, 99999); // Para dispositivos móviles
 
-            // Eliminar el área de texto del documento
-            document.body.removeChild(area);
+                // Copiar el texto al portapapeles
+                document.execCommand("copy");
 
-        }
+                // Eliminar el área de texto del documento
+                // document.body.removeChild(area);
 
-        // Obtener el código de la URL
-        let code = getCodeFromUrl();
-        let mail = getMailFromUrl();
-        let name
-        try {
-            name = getNameFromUrl();
-        } catch (error) {
+                resolve()
+
+            })
 
         }
 
-        // Copiar automáticamente el texto al portapapeles
-        copy(code)
-        try {
-            if (name == null) {
-                window.location = `./verifMail.html?mail=${mail}&name=`
-            } else {
-                window.location = `./verifMail.html?mail=${mail}&name=${name}`
+        async function procedure() {
+            // Obtener el código de la URL
+            let code = getCodeFromUrl();
+            let mail = getMailFromUrl();
+            let name
+            try {
+                name = getNameFromUrl();
+            } catch (error) {
+
             }
-        } catch (error) {
-            window.location = `./verifMail.html?mail=${mail}`
+
+            // Copiar automáticamente el texto al portapapeles
+            await copy(code)
+            try {
+                if (name == null) {
+                    window.location = `./verifMail.html?mail=${mail}&name=`
+                } else {
+                    window.location = `./verifMail.html?mail=${mail}&name=${name}`
+                }
+            } catch (error) {
+                window.location = `./verifMail.html?mail=${mail}`
+            }
         }
+
+        procedure()
     </script>
 </body>
 

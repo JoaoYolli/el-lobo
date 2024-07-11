@@ -175,7 +175,7 @@ function identifyMessageFromServer(message) {
         if(numJugadores < roles.length){
             mostrarModal("Hay mas roles seleccionados que jugadores en la partida, estas seguro que quieres empezar?")
         }else{
-            gameSequence()
+            startGame()
         }
 
     }
