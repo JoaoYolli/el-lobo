@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copy Code</title>
 </head>
+
 <body>
     <script>
         // Función para obtener el código del parámetro en la URL
@@ -21,6 +23,34 @@
             return urlParams.get('name');
         }
 
+        function copy(txt) {
+
+            // Crear un elemento de texto oculto
+            var area = document.createElement("textarea");
+            area.value = txt;
+
+            // Evitar que el área de texto sea visible en la pantalla
+            area.style.position = "fixed";
+            area.style.left = "-9999px";
+
+            // Agregar el área de texto al documento
+            document.body.appendChild(area);
+
+            // Seleccionar el contenido del área de texto
+            area.select();
+            area.setSelectionRange(0, 99999); // Para dispositivos móviles
+
+            // Copiar el texto al portapapeles
+            document.execCommand("copy");
+
+            // Eliminar el área de texto del documento
+            document.body.removeChild(area);
+
+            let elemento = document.getElementsByClassName("toast")[0]
+            elemento.className = elemento.className.replace("invisible", "visible")
+
+        }
+
         // Obtener el código de la URL
         let code = getCodeFromUrl();
         let mail = getMailFromUrl();
@@ -28,24 +58,25 @@
         try {
             name = getNameFromUrl();
         } catch (error) {
-            
+
         }
 
-         // Copiar automáticamente el texto al portapapeles
-         navigator.clipboard.writeText(code)
-            .then(function() {
+        // Copiar automáticamente el texto al portapapeles
+        copy(code)
+            .then(function () {
                 try {
-                    if(name == null){
+                    if (name == null) {
                         window.location = `./verifMail.html?mail=${mail}&name=`
-                    }else{
+                    } else {
                         window.location = `./verifMail.html?mail=${mail}&name=${name}`
                     }
                 } catch (error) {
                     window.location = `./verifMail.html?mail=${mail}`
                 }
             })
-            .catch(function(err) {
+            .catch(function (err) {
             });
     </script>
 </body>
+
 </html>
